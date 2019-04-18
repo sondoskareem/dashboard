@@ -2,12 +2,8 @@
 // 0 - 600px      phone
 //600 - 900        Tablet portrait
 //900 - 1200        Tablet landscape
-//1200 - 1800        normal screen
+//1200 - 1800        normal style
 //  + 1800              Bid desktop
-
-@mixin respond-phone{
-    @media (max-width : 600px){ @content };
-}
 
 /*
 $breakpoint argument choices:
@@ -17,17 +13,21 @@ $breakpoint argument choices:
 - big-desktop
 */
 @mixin respond($breakpoint){    
-    @if $breakpoint == phone{
-        @media (max-width : 600px){ @content };
+    @if $breakpoint == phone{ // 600px / 16 browser default
+        @media (max-width : 37.5em){ @content };
     }
-    @if $breakpoint == tab-port{
-        @media (max-width : 900px){ @content };
+    @if $breakpoint == larg-phone{ //700
+        @media (max-width : 43.75em){ @content };
+
     }
-    @if $breakpoint == tab-land{
-        @media (max-width : 1200px){ @content };
+    @if $breakpoint == tab-port{ //900px
+        @media (max-width : 56.25em){ @content };
     }
-    @if $breakpoint == big-desktop{
-        @media (min-width : 1800px){ @content };
+    @if $breakpoint == tab-land{//1200px
+        @media (max-width : 75em){ @content };
+    }
+    @if $breakpoint == big-desktop{//1800
+        @media (min-width : 112.5em){ @content };
     }
 }
 
@@ -40,8 +40,18 @@ html{
     font-size: 62.5%;
     width: 100%;
     height: 100%;
-    @include respond(phone){
+
+    @include respond(phone){ //600
         font-size: 50%;
+    }
+    @include respond(tab-port){ //900
+        font-size: 55%;
+    }
+    @include respond(tab-land){ //1200
+        font-size: 57%;
+    }
+    @include respond(big-desktop){ //+1800
+        font-size: 80%;
     }
 }
 body{
@@ -51,29 +61,47 @@ body{
     line-height: 1.7;
     width: 100%;
     height: 100%;
-    position: relative;
+    // position: relative;
     background-color: #ffffff;
     font-weight: 100;
+    
 }
 .container{
 
     width: 80vw;
     // height:100%;
     height:auto;
-    margin: 7rem auto;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50% , -50%);
+    overflow: scroll;
+    margin: 4rem auto;
+    position: relative;
+    // left: 50%;
+    // top: 50%;
+    // transform: translate(-50% , -50%);
     display: flex;
+    // align-items: stretch;
+    @include respond(larg-phone){ //700
+        flex-direction: column;
+    }
 
+    .nav{
+        display: none;
 
+            @include respond(larg-phone){ //700
+                display: inline-block;
+                position: absolute;
+                top: 1%;
+                left: 50%;
+                font-size: 1.5rem;
+                cursor: pointer;
+                z-index: 99;
+                }
+    }
     &__navbar{
         height: auto;
         width: auto;
         position: relative;
         flex: 1;
-       color: #fff;
+        color: #fff;
         background-color: rgb(42, 40, 71);
 
         .logo{
@@ -110,6 +138,13 @@ body{
                
             }
         }
+        .dashboard{
+            @include respond(larg-phone){ //700
+                position: absolute;
+                bottom:20%;
+                right: 10%; 
+                 }
+        }
         .request{
             margin-top: 5rem;
             i{
@@ -123,6 +158,12 @@ body{
                 color: #d47979;
 
             }
+            @include respond(larg-phone){ //700
+                position: absolute;
+                bottom:13%;
+                left: 2%; 
+                margin: 0;
+                 }
         }
 
         .setting{
@@ -140,14 +181,26 @@ body{
                 // justify-content: center;
                 align-items: center;
             }
+            @include respond(larg-phone){ //700
+           position: absolute;
+           bottom:5%;
+           left: 40%; 
+           font-size: 1rem;
+            }
             
         }
+
+        @include respond(larg-phone){ //700
+           height: 20rem;
+        }
+
+        
     }
     .marginclass{
         margin: 3rem;
     }
     &__body{
-        height: auto;
+        height: 100%;
         flex: 4;
         background-color: rgb(240, 240, 240);
         
@@ -207,8 +260,15 @@ body{
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    transform: translateX(30rem);
-
+                    transform: translateX(20rem);
+                        @include respond(tab-land){ //1200
+                        transform: translateX(10rem);
+                            
+                        }
+                        @include respond(larg-phone){ //600
+                        transform: translateX(2rem);
+                        
+                        }
                     p{
                         margin-right: .5rem;
                         color: $color-primary-grey;
@@ -305,6 +365,29 @@ body{
                 justify-content: space-between;
                 align-items: center;
                 border-bottom: 1px solid $color-border;
+
+                &:not(:last-child){
+                    border-bottom: 1px solid $color-border;
+
+                }
+                   
+                
+
+            }
+            &__grouped{
+                display: flex;
+                flex: 1;
+                & > div {
+                    flex: 1;
+                }
+
+                @include respond(tab-port){ //900
+                        display: inline-block;
+
+                        // flex-direction: column;
+                        // justify-content: center;
+                        // align-items: center;
+                }
             }
             &__card{
                 p:nth-child(1){font-weight: bold; margin-bottom: -1rem;}
