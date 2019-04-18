@@ -103,6 +103,13 @@ body{
         flex: 1;
         color: #fff;
         background-color: rgb(42, 40, 71);
+        @include respond(larg-phone){ //700
+            height: 20rem;
+         }
+         @include respond(tab-port){
+             flex: 2;
+ 
+         }
 
         .logo{
             text-align: center;
@@ -190,9 +197,7 @@ body{
             
         }
 
-        @include respond(larg-phone){ //700
-           height: 20rem;
-        }
+      
 
         
     }
@@ -203,6 +208,10 @@ body{
         height: 100%;
         flex: 4;
         background-color: rgb(240, 240, 240);
+        @include respond(tab-port){
+            flex: 2;
+
+        }
         
         .overview{
             height: 6rem;
