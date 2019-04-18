@@ -436,10 +436,6 @@ body {
   border-bottom: 1px solid #33323228;
 }
 
-.container__body .request__forborder:not(:last-child) {
-  border-bottom: 1px solid #33323228;
-}
-
 .container__body .request__grouped {
   display: -webkit-box;
   display: -ms-flexbox;
