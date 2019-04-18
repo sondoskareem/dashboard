@@ -278,6 +278,10 @@ body{
                         transform: translateX(2rem);
                         
                         }
+                        @include respond(tab-port){ //600
+                            transform: translateX(-1rem);
+                            
+                            }
                     p{
                         margin-right: .5rem;
                         color: $color-primary-grey;
